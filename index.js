@@ -11,6 +11,7 @@ const passport = require('passport')
 const authRouter = require('./src/routes/auth.routes')
 const courseRouter = require('./src/routes/course.routes')
 const userRouter = require('./src/routes/user.routes')
+const masterClassRouter = require('./src/routes/masterClassRouter.routes')
 
 const answerRouter = require('./src/routes/answer.routes')
 
@@ -46,6 +47,7 @@ app.use('/api/auth/', authRouter)
 app.use('/api/course/', courseRouter)
 app.use('/api/user/', userRouter)
 app.use('/api/lesson/', lessonRouter)
+app.use('/api/masterclass/', masterClassRouter)
 
 app.use('/api/answer/', answerRouter)
 
