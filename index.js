@@ -30,7 +30,13 @@ app.use(cookieParser())
 app.use(cors({
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
-  origin: ['http://localhost:3000', 'https://platform-lem.vercel.app', 'https://classelus.vercel.app'],
+  origin: [
+    'http://localhost:3000',
+    'https://platform-lem.vercel.app',
+    'https://classelus.vercel.app',
+    'https://www.classelus.com',
+    'https://classelus.com',
+  ],
 }))
 
 app.use(express.json())
