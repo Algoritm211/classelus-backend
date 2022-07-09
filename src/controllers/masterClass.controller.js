@@ -6,12 +6,12 @@ class MasterClassController {
   async create(req, res) {
     try {
       const userId = req.user.id
-      const { title, description, video } = req.body
+      const { title, description, videoURL } = req.body
       const masterClass = new MasterClass({
-        creator: userId,
+        author: userId,
         title,
         description,
-        video,
+        videoURL,
       })
       const user = await User.findOne({ _id: req.user.id })
       user.masterClassAuthor.push(masterClass._id)
