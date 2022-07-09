@@ -47,6 +47,45 @@ class MasterClassController {
       consola.error('Something went wrong while getting all masterclasses')
     }
   }
+
+  async update(req, res) {
+    try {
+      const updateObj = {}
+
+      for (const [key, value] of Object.entries(req.body)) {
+        if (value !== undefined) {
+          updateObj[key] = value
+        }
+      }
+      const { id } = req.params
+      const updatedMasterClass = await MasterClass.findOneAndUpdate(
+        { _id: id },
+        updateObj,
+        { new: true },
+      )
+      return res.status(204).json({
+        data: updatedMasterClass,
+      })
+    } catch (error) {
+      consola.error('Something went wrong while updating masterclass')
+    }
+  }
+
+  async like(req, res) {
+    try {
+      const { id } = req.params
+      const masterClass = await MasterClass.findById(id)
+      masterClass.rating += 1
+      await masterClass.save()
+      const user = await User.findOne({ _id: req.user.id })
+      user.likedMasterClasses.push(masterClass._id)
+      return res.status(201).json({
+        data: masterClass,
+      })
+    } catch (error) {
+      consola.error('Something went in masterclass like process')
+    }
+  }
 }
 
 
