@@ -5,12 +5,12 @@ class MasterClassController {
   async create(req, res) {
     try {
       const userId = req.user.id
-      const { title, description, video } = req.body
+      const { title, description, videoURL } = req.body
       const masterClass = new MasterClass({
-        creator: userId,
+        author: userId,
         title,
         description,
-        video,
+        videoURL,
       })
       await masterClass.save()
       return res.status(201).json({
