@@ -1,5 +1,6 @@
 const consola = require('consola')
 const MasterClass = require('../models/MasterClass')
+const User = require('../models/User')
 
 class MasterClassController {
   async create(req, res) {
@@ -12,6 +13,9 @@ class MasterClassController {
         description,
         video,
       })
+      const user = await User.findOne({ _id: req.user.id })
+      user.masterClassAuthor.push(masterClass._id)
+      await user.save()
       await masterClass.save()
       return res.status(201).json({
         data: masterClass,
