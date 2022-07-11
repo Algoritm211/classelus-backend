@@ -20,6 +20,7 @@ const User = new Schema({
   coursesAuthor: [{ type: ObjectId, ref: 'Course' }],
   courses: [{ type: ObjectId, ref: 'Course' }],
   likedCourses: [{ type: ObjectId, ref: 'Course' }],
+  likedMasterClasses: [{ type: ObjectId, ref: 'MasterClass' }],
   lessonsCompleted: [{ type: ObjectId, ref: 'Lesson' }],
   stepsCompleted: [{ type: ObjectId }],
   masterClassAuthor: [{ type: ObjectId, ref: 'MasterClass' }],
