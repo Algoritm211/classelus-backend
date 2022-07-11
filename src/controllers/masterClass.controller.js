@@ -75,12 +75,22 @@ class MasterClassController {
     try {
       const { id } = req.params
       const masterClass = await MasterClass.findById(id)
-      masterClass.rating += 1
-      await masterClass.save()
       const user = await User.findOne({ _id: req.user.id })
-      user.likedMasterClasses.push(masterClass._id)
+
+      if (user.likedMasterClasses && user.likedMasterClasses.includes(id)) {
+        masterClass.rating -= 1
+        user.likedMasterClasses.remove(masterClass._id)
+      } else {
+        masterClass.rating += 1
+        user.likedMasterClasses.push(masterClass._id)
+      }
+
+      await masterClass.save()
+      await user.save()
+
       return res.status(201).json({
-        data: masterClass,
+        masterClass: masterClass,
+        user: user,
       })
     } catch (error) {
       consola.error('Something went in masterclass like process')
