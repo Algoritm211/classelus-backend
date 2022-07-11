@@ -39,7 +39,7 @@ class MasterClassController {
 
   async getAll(req, res) {
     try {
-      const masterClasses = await MasterClass.find({})
+      const masterClasses = await MasterClass.find({}).populate('creator')
       return res.status(200).json({
         data: masterClasses,
       })
