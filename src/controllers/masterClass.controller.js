@@ -28,7 +28,7 @@ class MasterClassController {
   async getById(req, res) {
     try {
       const { id } = req.params
-      const masterClass = await MasterClass.findOne({ _id: id }).populate('creator')
+      const masterClass = await MasterClass.findOne({ _id: id }).populate('author')
       return res.status(200).json({
         data: masterClass,
       })
@@ -39,7 +39,7 @@ class MasterClassController {
 
   async getAll(req, res) {
     try {
-      const masterClasses = await MasterClass.find({})
+      const masterClasses = await MasterClass.find({}).populate('author')
       return res.status(200).json({
         data: masterClasses,
       })
