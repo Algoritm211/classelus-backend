@@ -6,7 +6,7 @@ const authMiddleware = require('../middlewares/auth.middleware')
 router.post('/create', authMiddleware, masterClassController.create)
 router.put('/:id/update', authMiddleware, masterClassController.update)
 router.post('/:id/like', authMiddleware, masterClassController.like)
-router.get('/all', authMiddleware, masterClassController.getAll)
-router.get('/:id', authMiddleware, masterClassController.getById)
+router.get('/all', masterClassController.getAll)
+router.get('/:id', masterClassController.getById)
 
 module.exports = router
