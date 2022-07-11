@@ -145,10 +145,10 @@ class CourseController {
         .populate('author')
         .populate('lessons')
       if (user.likedCourses && user.likedCourses.includes(courseId)) {
-        course.rating = course.rating - 1
+        course.rating -= 1
         user.likedCourses.remove(course._id)
       } else {
-        course.rating = course.rating + 1
+        course.rating += 1
         user.likedCourses.push(course._id)
       }
 
