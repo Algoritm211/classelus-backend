@@ -4,8 +4,17 @@ const axios = require('axios')
 class CodeService {
   async #runCode({ language, code, rawTests, logFunc }) {
     let isCodeValid = true
+    const splitter = '|'
     let errorMsg = ''
-    const tests = `${logFunc}(${rawTests.map((testObj) => testObj.test).join(', ')})`
+
+    const testsBody = rawTests.map((testObj) => {
+      if (testObj.test.includes('(') && testObj.test.includes(')')) {
+        return testObj.test
+      }
+      return `\"${testObj.test}\"`
+    }).join(`, '${splitter}' ,`)
+
+    const tests = `${logFunc}(${testsBody})`
 
     const codeForRun = `${code}\n\n${tests}`
 
@@ -25,10 +34,10 @@ class CodeService {
       errorMsg = execCodeData.output
     }
 
-    const results = execCodeData.output.split(' ').map((elem) => elem.replace('\n', ''))
+    const results = execCodeData.output.split(' \'|\' ').map((elem) => elem.replace('\n', ''))
 
     results.forEach((res, index) => {
-      if (rawTests[index]?.expected !== res) {
+      if (rawTests[index]?.expected !== res && !res.includes(rawTests[index].expected)) {
         if (!errorMsg) {
           errorMsg += `Wrong output for ${rawTests[index]?.test}\n`
         }
