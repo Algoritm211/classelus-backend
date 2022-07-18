@@ -37,7 +37,7 @@ class CodeService {
     const results = execCodeData.output.split(' \'|\' ').map((elem) => elem.replace('\n', ''))
 
     results.forEach((res, index) => {
-      if (rawTests[index]?.expected !== res && !res.includes(rawTests[index].expected.trim())) {
+      if (rawTests[index]?.expected !== res && !res.includes(rawTests[index].expected)) {
         if (!errorMsg) {
           errorMsg += `Wrong output for ${rawTests[index]?.test}\n`
         }
