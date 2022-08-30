@@ -5,8 +5,9 @@ const JWT = require('jsonwebtoken')
 
 const cookieOptions = {
   secure: true,
+  expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
   maxAge: 24 * 60 * 60 * 1000,
-  sameSite: 'none',
+  sameSite: 'lax',
 }
 
 class AuthController {
